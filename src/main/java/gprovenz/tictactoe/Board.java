@@ -1,0 +1,95 @@
+package gprovenz.tictactoe;
+
+import lombok.Getter;
+
+public class Board {
+
+    public static final int PLAYER1 = 1;
+    public static final int PLAYER2 = -1;
+
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_YELLOW = "\u001B[33m";
+    public static final String ANSI_BLUE = "\u001B[34m";
+    public static final String ANSI_CYAN = "\u001B[36m";
+    public static final String ANSI_WHITE = "\u001B[37m";
+
+    private int size;
+
+    private int[][] board;
+
+    public Board(int size) {
+        this.size = size;
+        this.board = new int[size][size];
+    }
+
+    public int size() {
+        return size;
+    }
+
+    public int getTotalCells() {
+        return size * size;
+    }
+
+    public String getSymbol(int cellValue) {
+        switch (cellValue) {
+            case PLAYER1: return "X";
+            case PLAYER2: return "O";
+            default: return "-";
+        }
+    }
+
+    public String getSymbol(int row, int col) {
+        int value = board[row][col];
+        switch (value) {
+            case PLAYER1: return ANSI_YELLOW + " X";
+            case PLAYER2: return ANSI_RED + " O";
+            default:
+                int cellNum = (row * size + col + 1);
+                return ANSI_BLUE + String.format("%2s", cellNum);
+        }
+    }
+
+    public void put(int cell, int player) {
+        if (cell < 1 || cell > getTotalCells()) {
+            throw new IllegalArgumentException("Invalid cell number: " + cell);
+        }
+        put ((cell-1) / size, (cell-1) % size, player);
+    }
+
+    public void put(int row, int col, int player) {
+        board[row][col] = player;
+    }
+
+    public int get(int cell) {
+        return get((cell-1) / size, (cell-1) % size);
+    }
+
+    public int get(int row, int col) {
+        return board[row][col];
+    }
+
+    public String printBoard() {
+        StringBuilder sb = new StringBuilder(ANSI_CYAN);
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                sb.append(" ").append(getSymbol(i, j)).append(" ").append(ANSI_WHITE);
+                if (j < size - 1) {
+                    sb.append(" | ");
+                }
+            }
+            sb.append("\n");
+            if (i < size - 1) {
+                for (int j = 0; j < size; j++) {
+                    sb.append("----");
+                    if (j < size - 1) {
+                        sb.append("-+-");
+                    }
+                }
+                sb.append("\n");
+            }
+        }
+        return sb.toString();
+    }
+
+}
+
