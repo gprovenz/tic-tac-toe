@@ -1,6 +1,5 @@
 package gprovenz.tictactoe;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
 import static gprovenz.tictactoe.Board.*;
@@ -19,20 +18,20 @@ public class Game {
         }
 
 
-        boolean playerFirst = false; // Set to false to let AI start first
+        boolean playerFirst = true; // Set to false to let AI start first
 
         while (true) {
             Board board = new Board(boardSize);
             BoardAnalyzer analyzer = new BoardAnalyzer(board);
-            AIPlayer aiPlayer = new AIPlayer();
+            AIPlayer aiPlayer = new AIPlayer(board);
 
             int totalMoves = boardSize * boardSize;
             int moves = 0;
-            int currentTurn = playerFirst ? PLAYER1 : PLAYER2;
+            int currentTurn = playerFirst ? HUMAN_PLAYER : AI_PLAYER;
 
             while (moves < totalMoves) {
                 // Player's move
-                if (currentTurn == PLAYER1) {
+                if (currentTurn == HUMAN_PLAYER) {
                     printBoard(board);
                     int cell;
                     do {
@@ -40,25 +39,25 @@ public class Game {
                         cell = scanner.nextInt();
                     } while (!isValidMove(board, cell));
 
-                    board.put(cell, PLAYER1);
+                    board.put(cell, HUMAN_PLAYER);
                     moves++;
-                    if (analyzer.getWinner() == PLAYER1) {
+                    if (analyzer.getWinner() == HUMAN_PLAYER) {
                         printBoard(board);
                         System.out.println("Congratulations! You win!");
                         break;
                     }
-                    currentTurn = PLAYER2;
+                    currentTurn = AI_PLAYER;
                 } else {
                     // AI's move
                     int bestMove = aiPlayer.move(board);
-                    board.put(bestMove, PLAYER2);
+                    board.put(bestMove, AI_PLAYER);
                     moves++;
-                    if (analyzer.getWinner() == PLAYER2) {
+                    if (analyzer.getWinner() == AI_PLAYER) {
                         printBoard(board);
                         System.out.println("AI wins!");
                         break;
                     }
-                    currentTurn = PLAYER1;
+                    currentTurn = HUMAN_PLAYER;
                 }
 
                 // Check if there's a winner (draw is handled by moves == totalMoves)

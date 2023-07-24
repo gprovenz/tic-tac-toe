@@ -2,8 +2,8 @@ package gprovenz.tictactoe;
 
 import org.junit.jupiter.api.Test;
 
-import static gprovenz.tictactoe.Board.PLAYER1;
-import static gprovenz.tictactoe.Board.PLAYER2;
+import static gprovenz.tictactoe.Board.HUMAN_PLAYER;
+import static gprovenz.tictactoe.Board.AI_PLAYER;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class BoardAnalyzerTest {
@@ -13,10 +13,10 @@ class BoardAnalyzerTest {
         Board board = new Board(3);
         BoardAnalyzer boardAnalyzer = new BoardAnalyzer(board);
 
-        board.put(1, PLAYER1);
-        board.put(3, PLAYER2);
-        board.put(8, PLAYER1);
-        board.put(9, PLAYER2);
+        board.put(1, HUMAN_PLAYER);
+        board.put(3, AI_PLAYER);
+        board.put(8, HUMAN_PLAYER);
+        board.put(9, AI_PLAYER);
         System.out.println(board.printBoard());
         int winner = boardAnalyzer.getWinner();
         System.out.println("Winner: " + board.getSymbol(winner));
@@ -29,18 +29,18 @@ class BoardAnalyzerTest {
         Board board = new Board(3);
         BoardAnalyzer boardAnalyzer = new BoardAnalyzer(board);
 
-        board.put(1, PLAYER1);
-        board.put(3, PLAYER2);
-        board.put(8, PLAYER2);
-        board.put(9, PLAYER2);
-        board.put(4, PLAYER1);
-        board.put(7, PLAYER1);
+        board.put(1, HUMAN_PLAYER);
+        board.put(3, AI_PLAYER);
+        board.put(8, AI_PLAYER);
+        board.put(9, AI_PLAYER);
+        board.put(4, HUMAN_PLAYER);
+        board.put(7, HUMAN_PLAYER);
 
         System.out.println("\n" + board.printBoard());
         int winner = boardAnalyzer.getWinner();
         System.out.println("Winner: " + board.getSymbol(winner));
 
-        assertEquals(PLAYER1, winner);
+        assertEquals(HUMAN_PLAYER, winner);
     }
 
     @Test
@@ -48,17 +48,17 @@ class BoardAnalyzerTest {
         Board board = new Board(3);
         BoardAnalyzer boardAnalyzer = new BoardAnalyzer(board);
 
-        board.put(1, PLAYER2);
-        board.put(3, PLAYER2);
-        board.put(7, PLAYER1);
-        board.put(8, PLAYER1);
-        board.put(9, PLAYER1);
+        board.put(1, AI_PLAYER);
+        board.put(3, AI_PLAYER);
+        board.put(7, HUMAN_PLAYER);
+        board.put(8, HUMAN_PLAYER);
+        board.put(9, HUMAN_PLAYER);
 
         System.out.println("\n" + board.printBoard());
         int winner = boardAnalyzer.getWinner();
         System.out.println("Winner: " + board.getSymbol(winner));
 
-        assertEquals(PLAYER1, winner);
+        assertEquals(HUMAN_PLAYER, winner);
     }
 
     @Test
@@ -66,18 +66,18 @@ class BoardAnalyzerTest {
         Board board = new Board(3);
         BoardAnalyzer boardAnalyzer = new BoardAnalyzer(board);
 
-        board.put(1, PLAYER1);
-        board.put(3, PLAYER2);
-        board.put(5, PLAYER2);
-        board.put(7, PLAYER2);
-        board.put(8, PLAYER1);
-        board.put(9, PLAYER1);
+        board.put(1, HUMAN_PLAYER);
+        board.put(3, AI_PLAYER);
+        board.put(5, AI_PLAYER);
+        board.put(7, AI_PLAYER);
+        board.put(8, HUMAN_PLAYER);
+        board.put(9, HUMAN_PLAYER);
 
         System.out.println("\n" + board.printBoard());
         int winner = boardAnalyzer.getWinner();
         System.out.println("Winner: " + board.getSymbol(winner));
 
-        assertEquals(PLAYER2, winner);
+        assertEquals(AI_PLAYER, winner);
     }
 
     @Test
@@ -85,18 +85,18 @@ class BoardAnalyzerTest {
         Board board = new Board(3);
         BoardAnalyzer boardAnalyzer = new BoardAnalyzer(board);
 
-        board.put(1, PLAYER1);
-        board.put(3, PLAYER2);
-        board.put(5, PLAYER1);
-        board.put(7, PLAYER2);
-        board.put(8, PLAYER2);
-        board.put(9, PLAYER1);
+        board.put(1, HUMAN_PLAYER);
+        board.put(3, AI_PLAYER);
+        board.put(5, HUMAN_PLAYER);
+        board.put(7, AI_PLAYER);
+        board.put(8, AI_PLAYER);
+        board.put(9, HUMAN_PLAYER);
 
         System.out.println("\n" + board.printBoard());
         int winner = boardAnalyzer.getWinner();
         System.out.println("Winner: " + board.getSymbol(winner));
 
-        assertEquals(PLAYER1, winner);
+        assertEquals(HUMAN_PLAYER, winner);
     }
 
 

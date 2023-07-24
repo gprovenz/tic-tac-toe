@@ -2,8 +2,8 @@ package gprovenz.tictactoe;
 
 import lombok.AllArgsConstructor;
 
-import static gprovenz.tictactoe.Board.PLAYER1;
-import static gprovenz.tictactoe.Board.PLAYER2;
+import static gprovenz.tictactoe.Board.HUMAN_PLAYER;
+import static gprovenz.tictactoe.Board.AI_PLAYER;
 
 @AllArgsConstructor
 public class BoardAnalyzer {
@@ -11,17 +11,17 @@ public class BoardAnalyzer {
     private Board board;
 
     public int getWinner() {
-        if (checkRowWin(PLAYER1)
-                || checkColWin(PLAYER1)
-                || checkMainDiagonalWin(PLAYER1)
-                || checkAntiDiagonalWin(PLAYER1)) {
-            return PLAYER1;
+        if (checkRowWin(HUMAN_PLAYER)
+                || checkColWin(HUMAN_PLAYER)
+                || checkMainDiagonalWin(HUMAN_PLAYER)
+                || checkAntiDiagonalWin(HUMAN_PLAYER)) {
+            return HUMAN_PLAYER;
         }
-        if (checkRowWin(PLAYER2)
-                || checkColWin(PLAYER2)
-                || checkMainDiagonalWin(PLAYER2)
-                || checkAntiDiagonalWin(PLAYER2)) {
-            return PLAYER2;
+        if (checkRowWin(AI_PLAYER)
+                || checkColWin(AI_PLAYER)
+                || checkMainDiagonalWin(AI_PLAYER)
+                || checkAntiDiagonalWin(AI_PLAYER)) {
+            return AI_PLAYER;
         }
         return 0;
     }

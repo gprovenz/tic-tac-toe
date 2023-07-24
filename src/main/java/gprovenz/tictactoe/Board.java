@@ -4,8 +4,9 @@ import lombok.Getter;
 
 public class Board {
 
-    public static final int PLAYER1 = 1;
-    public static final int PLAYER2 = -1;
+    public static final int EMPTY = 0;
+    public static final int HUMAN_PLAYER = 1;
+    public static final int AI_PLAYER = 2;
 
     public static final String ANSI_RED = "\u001B[31m";
     public static final String ANSI_YELLOW = "\u001B[33m";
@@ -15,10 +16,14 @@ public class Board {
 
     private int size;
 
+    @Getter
+    private int totalCells;
+
     private int[][] board;
 
     public Board(int size) {
         this.size = size;
+        this.totalCells = size * size;
         this.board = new int[size][size];
     }
 
@@ -26,14 +31,10 @@ public class Board {
         return size;
     }
 
-    public int getTotalCells() {
-        return size * size;
-    }
-
     public String getSymbol(int cellValue) {
         switch (cellValue) {
-            case PLAYER1: return "X";
-            case PLAYER2: return "O";
+            case HUMAN_PLAYER: return "X";
+            case AI_PLAYER: return "O";
             default: return "-";
         }
     }
@@ -41,8 +42,8 @@ public class Board {
     public String getSymbol(int row, int col) {
         int value = board[row][col];
         switch (value) {
-            case PLAYER1: return ANSI_YELLOW + " X";
-            case PLAYER2: return ANSI_RED + " O";
+            case HUMAN_PLAYER: return ANSI_YELLOW + " X";
+            case AI_PLAYER: return ANSI_RED + " O";
             default:
                 int cellNum = (row * size + col + 1);
                 return ANSI_BLUE + String.format("%2s", cellNum);
@@ -89,6 +90,15 @@ public class Board {
             }
         }
         return sb.toString();
+    }
+
+    public boolean isFull() {
+        for (int i = 1; i <= getTotalCells(); i++) {
+            if (get(i) == EMPTY) {
+                return false;
+            }
+        }
+        return true;
     }
 
 }
