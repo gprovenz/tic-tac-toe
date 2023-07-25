@@ -17,7 +17,7 @@ public class BoardAnalyzer {
         this.inARowToWin = Math.min(MAX_IN_A_ROW, board.size());
     }
 
-    public int getWinner() {
+    public char getWinner() {
         if (checkRowWin(HUMAN_PLAYER)
                 || checkColWin(HUMAN_PLAYER)
                 || checkMainDiagonalWin(HUMAN_PLAYER)

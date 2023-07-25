@@ -4,9 +4,9 @@ import lombok.Getter;
 
 public class Board {
 
-    public static final int EMPTY = 0;
-    public static final int HUMAN_PLAYER = 1;
-    public static final int AI_PLAYER = 2;
+    public static final char EMPTY = 0;
+    public static final char HUMAN_PLAYER = 'X';
+    public static final char AI_PLAYER = 'O';
 
     public static final String ANSI_RED = "\u001B[31m";
     public static final String ANSI_YELLOW = "\u001B[33m";
@@ -19,12 +19,12 @@ public class Board {
     @Getter
     private int totalCells;
 
-    private int[][] board;
+    private char[][] board;
 
     public Board(int size) {
         this.size = size;
         this.totalCells = size * size;
-        this.board = new int[size][size];
+        this.board = new char[size][size];
     }
 
     public Board(Board board) {
@@ -38,41 +38,33 @@ public class Board {
         return size;
     }
 
-    public String getSymbol(int cellValue) {
-        switch (cellValue) {
-            case HUMAN_PLAYER: return "X";
-            case AI_PLAYER: return "O";
-            default: return "-";
-        }
-    }
-
     public String getSymbol(int row, int col) {
         int value = board[row][col];
         switch (value) {
-            case HUMAN_PLAYER: return ANSI_YELLOW + " X";
-            case AI_PLAYER: return ANSI_RED + " O";
+            case HUMAN_PLAYER: return ANSI_YELLOW + " " + HUMAN_PLAYER;
+            case AI_PLAYER: return ANSI_RED + " " + AI_PLAYER;
             default:
                 int cellNum = (row * size + col + 1);
                 return ANSI_BLUE + String.format("%2s", cellNum);
         }
     }
 
-    public void put(int cell, int player) {
+    public void put(int cell, char player) {
         if (cell < 1 || cell > getTotalCells()) {
             throw new IllegalArgumentException("Invalid cell number: " + cell);
         }
         put ((cell-1) / size, (cell-1) % size, player);
     }
 
-    public void put(int row, int col, int player) {
+    public void put(int row, int col, char player) {
         board[row][col] = player;
     }
 
-    public int get(int cell) {
+    public char get(int cell) {
         return get((cell-1) / size, (cell-1) % size);
     }
 
-    public int get(int row, int col) {
+    public char get(int row, int col) {
         return board[row][col];
     }
 
