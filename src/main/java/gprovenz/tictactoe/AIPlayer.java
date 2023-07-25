@@ -4,13 +4,13 @@ import lombok.SneakyThrows;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.*;
 
 import static gprovenz.tictactoe.Board.*;
 
 public class AIPlayer {
     public static final int MAX_THINK_TIME = 5;
-    private int level = 1;
     private Board board;
 
     public AIPlayer(Board board) {
@@ -18,7 +18,7 @@ public class AIPlayer {
     }
 
     public int move(Board board) {
-        if (level < 1) {
+        if (board.isEmpty()) {
             return randomMove(board);
         } else {
             return iterativeDepth();
@@ -78,7 +78,9 @@ public class AIPlayer {
         if (validMoves.isEmpty()) {
             return 0;
         }
-        return validMoves.get((int)(Math.random() * validMoves.size()));
+        Random random = new Random();
+        int randomCell = random.nextInt(validMoves.size());
+        return validMoves.get(randomCell);
     }
 
     private static int evaluateScore(BoardAnalyzer boardAnalyzer, int depth) {

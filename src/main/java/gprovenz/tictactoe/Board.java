@@ -108,5 +108,15 @@ public class Board {
         return true;
     }
 
+
+    public boolean isEmpty() {
+        for (int i = 1; i <= getTotalCells(); i++) {
+            if (get(i) != EMPTY) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 }
 
