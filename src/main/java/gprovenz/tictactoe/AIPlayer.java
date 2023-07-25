@@ -10,24 +10,32 @@ import java.util.concurrent.*;
 import static gprovenz.tictactoe.Board.*;
 
 public class AIPlayer {
-    public static final int MAX_THINK_TIME = 5;
-    private Board board;
+    private final Board board;
+    private final int thinkTimeSeconds;
+    private final char player;
 
-    public AIPlayer(Board board) {
+    public AIPlayer(Board board, int thinkTimeSeconds, char player) {
         this.board = board;
+        this.thinkTimeSeconds = thinkTimeSeconds;
+        this.player = player;
     }
 
-    public int move(Board board) {
+    public boolean move() {
+        int move;
         if (board.isEmpty()) {
-            return randomMove(board);
+            move = randomMove(board);
         } else {
-            return iterativeDepth();
+            move = iterativeDepth();
         }
+        if (move > 0) {
+            board.put(move, player);
+            return true;
+        }
+        return false;
     }
 
     @SneakyThrows
     private int iterativeDepth() {
-        // Create an ExecutorService with a single thread
         ExecutorService executor = Executors.newSingleThreadExecutor();
 
         var ref = new Object() {
@@ -38,7 +46,7 @@ public class AIPlayer {
         try {
             // Submit the task to the executor
             future = (Future<Void>) executor.submit(() -> {
-                // Call your function here
+                // Starts from lower depth, then increase to higher ones until timeout expires
                 for (int depth = 1; depth <= board.getTotalCells(); depth++) {
                     ref.best = getBestMove(new BoardAnalyzer(new Board(board)), depth);
                     ref.depth = depth;
@@ -49,7 +57,7 @@ public class AIPlayer {
             });
 
             // Wait for the result, and specify the timeout
-            future.get(MAX_THINK_TIME, TimeUnit.SECONDS);
+            future.get(thinkTimeSeconds, TimeUnit.SECONDS);
         } catch (TimeoutException | InterruptedException | ExecutionException e) {
             // do nothing
         } finally {
@@ -58,7 +66,7 @@ public class AIPlayer {
             executor.shutdownNow();
         }
 
-        System.out.println("Calculated at depth " + ref.depth);
+        System.out.println("AI move calculated with depth " + ref.depth);
         return ref.best;
     }
 

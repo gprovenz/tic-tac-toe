@@ -8,18 +8,23 @@ public class Board {
     public static final char HUMAN_PLAYER = 'X';
     public static final char AI_PLAYER = 'O';
 
-    public static final String ANSI_RED = "\u001B[31m";
-    public static final String ANSI_YELLOW = "\u001B[33m";
-    public static final String ANSI_BLUE = "\u001B[34m";
-    public static final String ANSI_CYAN = "\u001B[36m";
-    public static final String ANSI_WHITE = "\u001B[37m";
+    public static final String ANSI_RED =       "\u001B[31m";
+    public static final String ANSI_YELLOW =    "\u001B[33m";
+    public static final String ANSI_BLUE =      "\u001B[34m";
+    public static final String ANSI_GREEN =     "\u001B[32m";
+    public static final String ANSI_CYAN =      "\u001B[36m";
+    public static final String ANSI_WHITE =     "\u001B[37m";
+    public static final String RIGHT_ARROW =    "\u2192";
 
     private int size;
 
     @Getter
-    private int totalCells;
+    private final int totalCells;
 
-    private char[][] board;
+    private final char[][] board;
+
+    @Getter
+    private final int[] lastMove = new int[2];
 
     public Board(int size) {
         this.size = size;
@@ -40,9 +45,10 @@ public class Board {
 
     public String getSymbol(int row, int col) {
         int value = board[row][col];
+        boolean isLastMove = row == lastMove[0] && col == lastMove[1];
         switch (value) {
-            case HUMAN_PLAYER: return ANSI_YELLOW + " " + HUMAN_PLAYER;
-            case AI_PLAYER: return ANSI_RED + " " + AI_PLAYER;
+            case HUMAN_PLAYER: return (isLastMove ? ANSI_GREEN + RIGHT_ARROW : " ") + ANSI_YELLOW + HUMAN_PLAYER;
+            case AI_PLAYER: return (isLastMove ? ANSI_GREEN + RIGHT_ARROW : " ") + ANSI_RED + AI_PLAYER;
             default:
                 int cellNum = (row * size + col + 1);
                 return ANSI_BLUE + String.format("%2s", cellNum);
@@ -58,6 +64,8 @@ public class Board {
 
     public void put(int row, int col, char player) {
         board[row][col] = player;
+        lastMove[0]=row;
+        lastMove[1]=col;
     }
 
     public char get(int cell) {

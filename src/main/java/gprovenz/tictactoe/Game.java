@@ -5,6 +5,9 @@ import java.util.Scanner;
 import static gprovenz.tictactoe.Board.*;
 
 public class Game {
+
+    public static final int THINK_TIME_SECONDS = 5;
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
@@ -26,7 +29,7 @@ public class Game {
         while (true) {
             Board board = new Board(boardSize);
             BoardAnalyzer analyzer = new BoardAnalyzer(board);
-            AIPlayer aiPlayer = new AIPlayer(board);
+            AIPlayer aiPlayer = new AIPlayer(board, THINK_TIME_SECONDS, AI_PLAYER);
 
             int totalMoves = boardSize * boardSize;
             int moves = 0;
@@ -52,8 +55,7 @@ public class Game {
                     currentTurn = AI_PLAYER;
                 } else {
                     // AI's move
-                    int bestMove = aiPlayer.move(board);
-                    board.put(bestMove, AI_PLAYER);
+                    aiPlayer.move();
                     moves++;
                     if (analyzer.getWinner() == AI_PLAYER) {
                         printBoard(board);

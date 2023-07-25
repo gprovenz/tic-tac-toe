@@ -6,10 +6,11 @@ import static gprovenz.tictactoe.Board.AI_PLAYER;
 import static gprovenz.tictactoe.Board.HUMAN_PLAYER;
 
 public class BoardAnalyzer {
-
     public static final int MAX_IN_A_ROW = 4;
+
     @Getter
-    private Board board;
+    private final Board board;
+
     private final int inARowToWin;
 
     public BoardAnalyzer(Board board) {
@@ -64,7 +65,6 @@ public class BoardAnalyzer {
                     count = 0;
                 }
             }
-
         }
         return false;
     }
