@@ -1,31 +1,70 @@
 package gprovenz.tictactoe;
 
+import lombok.SneakyThrows;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.*;
 
 import static gprovenz.tictactoe.Board.*;
 
 public class AIPlayer {
+    public static final int MAX_THINK_TIME = 5;
     private int level = 1;
-    private BoardAnalyzer boardAnalyzer;
     private Board board;
 
     public AIPlayer(Board board) {
         this.board = board;
-        this.boardAnalyzer = new BoardAnalyzer(board);
     }
 
     public int move(Board board) {
         if (level < 1) {
             return randomMove(board);
         } else {
-            return getBestMove();
+            return iterativeDepth();
         }
     }
 
-    private int getBestMove() {
-        int depth = board.getTotalCells();
-        int[] bestMove = minimax(depth, Integer.MIN_VALUE, Integer.MAX_VALUE, true);
+    @SneakyThrows
+    private int iterativeDepth() {
+        // Create an ExecutorService with a single thread
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+
+        var ref = new Object() {
+            int best = -1;
+            int depth = 1;
+        };
+        Future<Void> future = null;
+        try {
+            // Submit the task to the executor
+            future = (Future<Void>) executor.submit(() -> {
+                // Call your function here
+                for (int depth = 1; depth <= board.getTotalCells(); depth++) {
+                    ref.best = getBestMove(new BoardAnalyzer(new Board(board)), depth);
+                    ref.depth = depth;
+                    if (Thread.interrupted()) {
+                        break;
+                    }
+                }
+            });
+
+            // Wait for the result, and specify the timeout
+            future.get(MAX_THINK_TIME, TimeUnit.SECONDS);
+        } catch (TimeoutException | InterruptedException | ExecutionException e) {
+            // do nothing
+        } finally {
+            future.cancel(true);
+            // Shutdown the executor
+            executor.shutdownNow();
+        }
+
+        System.out.println("Calculated at depth " + ref.depth);
+        return ref.best;
+    }
+
+    @SneakyThrows
+    private int getBestMove(BoardAnalyzer boardAnalyzer, int depth) {
+        int[] bestMove = minimax(boardAnalyzer, depth, Integer.MIN_VALUE, Integer.MAX_VALUE, true);
         return bestMove[1];
     }
 
@@ -42,20 +81,21 @@ public class AIPlayer {
         return validMoves.get((int)(Math.random() * validMoves.size()));
     }
 
-    private int evaluateScore(int depth) {
+    private static int evaluateScore(BoardAnalyzer boardAnalyzer, int depth) {
         int winner = boardAnalyzer.getWinner();
         switch (winner) {
             case HUMAN_PLAYER:
-                return -board.getTotalCells()*2 - 1 - depth;
+                return -boardAnalyzer.getBoard().getTotalCells()*2 - 1 - depth;
             case AI_PLAYER:
-                return board.getTotalCells()*2 + 1 + depth;
+                return boardAnalyzer.getBoard().getTotalCells()*2 + 1 + depth;
             default:
                 return 0;
         }
     }
 
-    private int[] minimax(int depth, int alpha, int beta, boolean maximizingPlayer) {
-        int score = evaluateScore(depth);
+    private static int[] minimax(BoardAnalyzer boardAnalyzer, int depth, int alpha, int beta, boolean maximizingPlayer) {
+        int score = evaluateScore(boardAnalyzer, depth);
+        Board board = boardAnalyzer.getBoard();
         if (depth == 0 || board.isFull() || score != 0) {
             return new int[] {score, -1};
         }
@@ -70,7 +110,7 @@ public class AIPlayer {
             if (board.get(cell) == EMPTY) {
                 board.put(cell, currentPlayer);
 
-                int[] currentMove = minimax(depth - 1, alpha, beta, !maximizingPlayer);
+                int[] currentMove = minimax(boardAnalyzer, depth - 1, alpha, beta, !maximizingPlayer);
 
                 board.put(cell, EMPTY);
 

@@ -11,12 +11,15 @@ public class Game {
         System.out.print("Enter the board size (e.g., 3 for 3x3, 4 for 4x4): ");
         int boardSize = scanner.nextInt();
 
-        while (boardSize < 3 || boardSize > 5) {
-            System.out.println("Invalid board size. Please enter a size between 3 and 5.");
+        while (boardSize < 3 || boardSize > 6) {
+            System.out.println("Invalid board size. Please enter a size between 3 and 6.");
             System.out.print("Enter the board size: ");
             boardSize = scanner.nextInt();
         }
 
+        if (boardSize>=4) {
+            System.out.println("At least four symbols in a row to win!");
+        }
 
         boolean playerFirst = true; // Set to false to let AI start first
 

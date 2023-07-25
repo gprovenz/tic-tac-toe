@@ -27,6 +27,13 @@ public class Board {
         this.board = new int[size][size];
     }
 
+    public Board(Board board) {
+        this(board.size);
+        for (int cell=1; cell <= board.getTotalCells(); cell++) {
+            this.put(cell, board.get(cell));
+        }
+    }
+
     public int size() {
         return size;
     }

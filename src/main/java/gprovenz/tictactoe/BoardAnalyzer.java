@@ -1,14 +1,21 @@
 package gprovenz.tictactoe;
 
-import lombok.AllArgsConstructor;
+import lombok.Getter;
 
-import static gprovenz.tictactoe.Board.HUMAN_PLAYER;
 import static gprovenz.tictactoe.Board.AI_PLAYER;
+import static gprovenz.tictactoe.Board.HUMAN_PLAYER;
 
-@AllArgsConstructor
 public class BoardAnalyzer {
 
+    public static final int MAX_IN_A_ROW = 4;
+    @Getter
     private Board board;
+    private final int inARowToWin;
+
+    public BoardAnalyzer(Board board) {
+        this.board = board;
+        this.inARowToWin = Math.min(MAX_IN_A_ROW, board.size());
+    }
 
     public int getWinner() {
         if (checkRowWin(HUMAN_PLAYER)
@@ -32,11 +39,14 @@ public class BoardAnalyzer {
             for (int col = 0; col < board.size(); col++) {
                 if (board.get(row, col) == player) {
                     count++;
+                    if (count >= inARowToWin) {
+                        return true;
+                    }
+                } else {
+                    count = 0;
                 }
             }
-            if (count == board.size()) {
-                return true;
-            }
+
         }
         return false;
     }
@@ -47,30 +57,65 @@ public class BoardAnalyzer {
             for (int row = 0; row < board.size(); row++) {
                 if (board.get(row, col) == player) {
                     count++;
+                    if (count >= inARowToWin) {
+                        return true;
+                    }
+                } else {
+                    count = 0;
                 }
             }
-            if (count == board.size()) {
-                return true;
-            }
+
         }
         return false;
     }
 
+    public int getInARowToWin() {
+        return Math.min(MAX_IN_A_ROW, board.size());
+    }
+
     private boolean checkMainDiagonalWin(int player) {
-        for (int i = 0; i < board.size(); i++) {
-            if (board.get(i, i) != player) {
-                return false;
+        // check other diagonals for >= 5x5
+        for (int row=0; row + getInARowToWin() <= board.size(); row++ ) {
+            for (int col=0; col + getInARowToWin() <= board.size(); col++ ) {
+                int count = 0;
+                int j = col;
+                for (int i = row; i < board.size() && j < board.size(); i++) {
+                    if (board.get(i, j) == player) {
+                        count++;
+                        if (count >= inARowToWin) {
+                            return true;
+                        }
+                    } else {
+                        count = 0;
+                    }
+                    j++;
+                }
             }
         }
-        return true;
+
+        return false;
     }
 
     private boolean checkAntiDiagonalWin(int player) {
-        for (int i = 0; i < board.size(); i++) {
-            if (board.get(i, board.size() - 1 - i) != player) {
-                return false;
+        // check other diagonals for >= 5x5
+        for (int row=0; row + getInARowToWin() <= board.size(); row++ ) {
+            for (int col=board.size()-1; col - getInARowToWin() >= -1; col--) {
+                int count = 0;
+                int j = col;
+                for (int i = row; i < board.size() && j >=0; i++) {
+                    if (board.get(i, j) == player) {
+                        count++;
+                        if (count >= inARowToWin) {
+                            return true;
+                        }
+                    } else {
+                        count = 0;
+                    }
+                    j--;
+                }
             }
         }
-        return true;
+
+        return false;
     }
 }
