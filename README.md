@@ -1,7 +1,5 @@
 # Tic-Tac-Toe with Minimax Algorithm
 
-![Tic-Tac-Toe](tic_tac_toe.jpg)
-
 ## Description
 
 This is an open-source Java implementation of the classic game Tic-Tac-Toe with an advanced AI player using the Minimax algorithm. The Minimax algorithm is a decision-making algorithm commonly used in two-player games with perfect information, like Tic-Tac-Toe. It ensures that the AI player always selects the best move possible, leading to a competitive and challenging gaming experience.
