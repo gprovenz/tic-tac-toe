@@ -64,8 +64,8 @@ public class AIPlayer {
 
     @SneakyThrows
     private int getBestMove(BoardAnalyzer boardAnalyzer, int depth) {
-        int[] bestMove = minimax(boardAnalyzer, depth, Integer.MIN_VALUE, Integer.MAX_VALUE, true);
-        return bestMove[1];
+        Move bestMove = minimax(boardAnalyzer, depth, Integer.MIN_VALUE, Integer.MAX_VALUE, true);
+        return bestMove.getCell();
     }
 
     private int randomMove(Board board) {
@@ -95,38 +95,36 @@ public class AIPlayer {
         }
     }
 
-    private static int[] minimax(BoardAnalyzer boardAnalyzer, int depth, int alpha, int beta, boolean maximizingPlayer) {
+    private static Move minimax(BoardAnalyzer boardAnalyzer, int depth, int alpha, int beta, boolean maximizingPlayer) {
         int score = evaluateScore(boardAnalyzer, depth);
         Board board = boardAnalyzer.getBoard();
         if (depth == 0 || board.isFull() || score != 0) {
-            return new int[] {score, -1};
+            return new Move(score, -1);
         }
 
         int bestCell = -1;
         int bestScore = maximizingPlayer ? Integer.MIN_VALUE : Integer.MAX_VALUE;
 
-        int currentPlayer = maximizingPlayer ? AI_PLAYER : HUMAN_PLAYER;
+        char currentPlayer = maximizingPlayer ? AI_PLAYER : HUMAN_PLAYER;
 
         for (int cell = 1; cell <= board.getTotalCells(); cell++) {
 
             if (board.get(cell) == EMPTY) {
                 board.put(cell, currentPlayer);
 
-                int[] currentMove = minimax(boardAnalyzer, depth - 1, alpha, beta, !maximizingPlayer);
+                Move currentMove = minimax(boardAnalyzer, depth - 1, alpha, beta, !maximizingPlayer);
 
                 board.put(cell, EMPTY);
 
-                int currentScore = currentMove[0];
-
                 if (maximizingPlayer) {
-                    if (currentScore > bestScore) {
-                        bestScore = currentScore;
+                    if (currentMove.getScore() > bestScore) {
+                        bestScore = currentMove.getScore();
                         bestCell = cell;
                     }
                     alpha = Math.max(alpha, bestScore);
                 } else {
-                    if (currentScore < bestScore) {
-                        bestScore = currentScore;
+                    if (currentMove.getScore() < bestScore) {
+                        bestScore = currentMove.getScore();
                         bestCell = cell;
                     }
                     beta = Math.min(beta, bestScore);
@@ -138,6 +136,6 @@ public class AIPlayer {
             }
         }
 
-        return new int[]{bestScore, bestCell};
+        return new Move (bestScore, bestCell);
     }
 }
