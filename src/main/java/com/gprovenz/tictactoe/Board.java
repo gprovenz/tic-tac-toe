@@ -2,12 +2,16 @@ package com.gprovenz.tictactoe;
 
 import lombok.Getter;
 
+// The class to represent the game board
 public class Board {
 
+    // Constants to represent different players and empty cells
     public static final char EMPTY = 0;
     public static final char HUMAN_PLAYER = 'X';
     public static final char AI_PLAYER = 'O';
 
+    // Constants for ANSI color codes and a right arrow symbol.
+    // They are blank by default since most consoles do not support them.
     public static final String ANSI_RED =       "";
     public static final String ANSI_YELLOW =    "";
     public static final String ANSI_BLUE =      "";
@@ -16,8 +20,8 @@ public class Board {
     public static final String ANSI_WHITE =     "";
     public static final String RIGHT_ARROW =    ">";
 
-    // Use the constants below instead if your console supports ANSI colors:
-     /*
+    // Use the constants below instead if your console supports ANSI colors, to have pretty-colored boards:
+    /*
     public static final String ANSI_RED =       "\u001B[31m";
     public static final String ANSI_YELLOW =    "\u001B[33m";
     public static final String ANSI_BLUE =      "\u001B[34m";
@@ -27,22 +31,26 @@ public class Board {
     public static final String RIGHT_ARROW =    "\u2192";
     */
 
+    // Board size and total number of cells
     private final int size;
-
     @Getter
     private final int totalCells;
 
+    // 2D array to represent the game board
     private final char[][] board;
 
+    // Array to store the last move made (row and column)
     @Getter
     private final int[] lastMove = new int[2];
 
+    // Constructor to initialize the board with the given size
     public Board(int size) {
         this.size = size;
         this.totalCells = size * size;
         this.board = new char[size][size];
     }
 
+    // Copy constructor to create a new board from an existing board
     public Board(Board board) {
         this(board.size);
         for (int cell=1; cell <= board.getTotalCells(); cell++) {
@@ -50,10 +58,12 @@ public class Board {
         }
     }
 
+    // Getter method for the board size
     public int size() {
         return size;
     }
 
+    // Returns the symbol (X, O, or cell number) at the specified row and column
     public String getSymbol(int row, int col) {
         int value = board[row][col];
         boolean isLastMove = row == lastMove[0] && col == lastMove[1];
@@ -66,6 +76,7 @@ public class Board {
         }
     }
 
+    // Places a player's symbol at the specified cell
     public void put(int cell, char player) {
         if (cell < 1 || cell > getTotalCells()) {
             throw new IllegalArgumentException("Invalid cell number: " + cell);
@@ -73,20 +84,24 @@ public class Board {
         put ((cell-1) / size, (cell-1) % size, player);
     }
 
+    // Places a player's symbol at the specified row and column
     public void put(int row, int col, char player) {
         board[row][col] = player;
         lastMove[0]=row;
         lastMove[1]=col;
     }
 
+    // Returns the symbol (X, O) at the specified cell
     public char get(int cell) {
         return get((cell-1) / size, (cell-1) % size);
     }
 
+    // Returns the symbol (X or O) at the specified row and column
     public char get(int row, int col) {
         return board[row][col];
     }
 
+    // Prints the current board with symbols and separators
     public String printBoard() {
         StringBuilder sb = new StringBuilder(ANSI_CYAN);
         for (int i = 0; i < size; i++) {
@@ -110,6 +125,7 @@ public class Board {
         return sb.toString();
     }
 
+    // Checks if the board is completely filled with symbols
     public boolean isFull() {
         for (int i = 1; i <= getTotalCells(); i++) {
             if (get(i) == EMPTY) {
@@ -119,7 +135,7 @@ public class Board {
         return true;
     }
 
-
+    // Checks if the board is empty (no symbols placed yet)
     public boolean isEmpty() {
         for (int i = 1; i <= getTotalCells(); i++) {
             if (get(i) != EMPTY) {
@@ -128,6 +144,4 @@ public class Board {
         }
         return true;
     }
-
 }
-

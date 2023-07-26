@@ -2,8 +2,10 @@ package com.gprovenz.tictactoe;
 
 import java.util.Scanner;
 
-import static com.gprovenz.tictactoe.Board.*;
+import static com.gprovenz.tictactoe.Board.AI_PLAYER;
+import static com.gprovenz.tictactoe.Board.HUMAN_PLAYER;
 
+//  The main class to launch the game
 public class Game {
 
     public static final int THINK_TIME_SECONDS = 5;
