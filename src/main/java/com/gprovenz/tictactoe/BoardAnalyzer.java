@@ -1,9 +1,9 @@
-package gprovenz.tictactoe;
+package com.gprovenz.tictactoe;
 
 import lombok.Getter;
 
-import static gprovenz.tictactoe.Board.AI_PLAYER;
-import static gprovenz.tictactoe.Board.HUMAN_PLAYER;
+import static com.gprovenz.tictactoe.Board.AI_PLAYER;
+import static com.gprovenz.tictactoe.Board.HUMAN_PLAYER;
 
 public class BoardAnalyzer {
     public static final int MAX_IN_A_ROW = 4;

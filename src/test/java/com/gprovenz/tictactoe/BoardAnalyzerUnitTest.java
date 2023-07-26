@@ -1,11 +1,11 @@
-package gprovenz.tictactoe;
+package com.gprovenz.tictactoe;
 
 import org.junit.jupiter.api.Test;
 
-import static gprovenz.tictactoe.Board.*;
+import static com.gprovenz.tictactoe.Board.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class BoardAnalyzerTest {
+class BoardAnalyzerUnitTest {
 
     @Test
     void testNoWinner() {

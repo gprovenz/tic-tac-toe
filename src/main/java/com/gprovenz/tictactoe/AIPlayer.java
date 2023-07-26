@@ -1,4 +1,4 @@
-package gprovenz.tictactoe;
+package com.gprovenz.tictactoe;
 
 import lombok.SneakyThrows;
 
@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.*;
 
-import static gprovenz.tictactoe.Board.*;
+import static com.gprovenz.tictactoe.Board.*;
 
 public class AIPlayer {
     private final Board board;

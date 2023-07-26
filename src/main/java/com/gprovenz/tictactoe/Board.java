@@ -1,4 +1,4 @@
-package gprovenz.tictactoe;
+package com.gprovenz.tictactoe;
 
 import lombok.Getter;
 
@@ -8,6 +8,16 @@ public class Board {
     public static final char HUMAN_PLAYER = 'X';
     public static final char AI_PLAYER = 'O';
 
+    public static final String ANSI_RED =       "";
+    public static final String ANSI_YELLOW =    "";
+    public static final String ANSI_BLUE =      "";
+    public static final String ANSI_GREEN =     "";
+    public static final String ANSI_CYAN =      "";
+    public static final String ANSI_WHITE =     "";
+    public static final String RIGHT_ARROW =    ">";
+
+    // Use the constants below instead if your console supports ANSI colors:
+     /*
     public static final String ANSI_RED =       "\u001B[31m";
     public static final String ANSI_YELLOW =    "\u001B[33m";
     public static final String ANSI_BLUE =      "\u001B[34m";
@@ -15,8 +25,10 @@ public class Board {
     public static final String ANSI_CYAN =      "\u001B[36m";
     public static final String ANSI_WHITE =     "\u001B[37m";
     public static final String RIGHT_ARROW =    "\u2192";
+    */
 
-    private int size;
+    @Getter
+    private final int size;
 
     @Getter
     private final int totalCells;

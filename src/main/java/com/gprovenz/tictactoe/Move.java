@@ -1,4 +1,4 @@
-package gprovenz.tictactoe;
+package com.gprovenz.tictactoe;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -6,6 +6,6 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class Move {
-    private int score;
-    private int cell;
+    private final int score;
+    private final int cell;
 }

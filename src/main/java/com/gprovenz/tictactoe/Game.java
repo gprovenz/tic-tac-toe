@@ -1,8 +1,8 @@
-package gprovenz.tictactoe;
+package com.gprovenz.tictactoe;
 
 import java.util.Scanner;
 
-import static gprovenz.tictactoe.Board.*;
+import static com.gprovenz.tictactoe.Board.*;
 
 public class Game {
 

@@ -1,18 +1,19 @@
-package gprovenz.tictactoe;
+package com.gprovenz.tictactoe;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class AIPlayerTest {
+class AIPlayerIntegrationTest {
+
+    private static final int MAX_THINK_TIME_SECONDS = 2;
 
     @Test
-    void test6x6Board() {
-
+    void testAIVsHumanOn6x6Board() {
         int[] humanMoves = new int[] {14, 15, 21, 19, 20, 9, 10, 5, 27, 33, 2, 4, 16, 22};
         Board board = new Board(6);
         BoardAnalyzer analyzer = new BoardAnalyzer(board);
-        AIPlayer aiPlayer = new AIPlayer(board, 2, Board.AI_PLAYER);
+        AIPlayer aiPlayer = new AIPlayer(board, MAX_THINK_TIME_SECONDS, Board.AI_PLAYER);
         for (int i=0; i<humanMoves.length; i++) {
             if (board.get(humanMoves[i])!=Board.EMPTY) {
                 continue;
@@ -30,15 +31,16 @@ class AIPlayerTest {
             }
         }
 
+        // with short AI think time it is possible to win:
+        assertTrue(analyzer.getWinner()==Board.HUMAN_PLAYER);
     }
 
     @Test
-    void test6x6BoardSelf() {
-
+    void testAIvsAIon6x6Board() {
         Board board = new Board(6);
         BoardAnalyzer analyzer = new BoardAnalyzer(board);
-        AIPlayer aiPlayer1 = new AIPlayer(board, 15, Board.HUMAN_PLAYER);
-        AIPlayer aiPlayer2 = new AIPlayer(board, 15, Board.AI_PLAYER);
+        AIPlayer aiPlayer1 = new AIPlayer(board, MAX_THINK_TIME_SECONDS, Board.HUMAN_PLAYER);
+        AIPlayer aiPlayer2 = new AIPlayer(board, 2, Board.AI_PLAYER);
         while (true) {
             boolean moved1 = aiPlayer1.move();
             if (moved1) {

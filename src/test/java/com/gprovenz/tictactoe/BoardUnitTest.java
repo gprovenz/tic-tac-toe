@@ -1,13 +1,13 @@
-package gprovenz.tictactoe;
+package com.gprovenz.tictactoe;
 
 import org.junit.jupiter.api.Test;
 
-import static gprovenz.tictactoe.Board.AI_PLAYER;
-import static gprovenz.tictactoe.Board.HUMAN_PLAYER;
+import static com.gprovenz.tictactoe.Board.AI_PLAYER;
+import static com.gprovenz.tictactoe.Board.HUMAN_PLAYER;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class BoardTest {
+public class BoardUnitTest {
     @Test
     void testFullBoard() {
         Board board = new Board(3);
