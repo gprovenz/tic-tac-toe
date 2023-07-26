@@ -27,7 +27,6 @@ public class Board {
     public static final String RIGHT_ARROW =    "\u2192";
     */
 
-    @Getter
     private final int size;
 
     @Getter

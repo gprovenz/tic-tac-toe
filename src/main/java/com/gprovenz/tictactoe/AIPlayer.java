@@ -92,7 +92,7 @@ public class AIPlayer {
     }
 
     private static int evaluateScore(BoardAnalyzer boardAnalyzer, int depth) {
-        int winner = boardAnalyzer.getWinner();
+        char winner= boardAnalyzer.getWinner();
         switch (winner) {
             case HUMAN_PLAYER:
                 return -boardAnalyzer.getBoard().getTotalCells()*2 - 1 - depth;

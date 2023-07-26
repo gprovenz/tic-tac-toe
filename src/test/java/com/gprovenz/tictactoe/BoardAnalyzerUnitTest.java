@@ -36,7 +36,7 @@ class BoardAnalyzerUnitTest {
         board.put(7, HUMAN_PLAYER);
 
         System.out.println("\n" + board.printBoard());
-        int winner = boardAnalyzer.getWinner();
+        char winner= boardAnalyzer.getWinner();
         System.out.println("Winner: " + winner);
 
         assertEquals(HUMAN_PLAYER, winner);
@@ -54,7 +54,7 @@ class BoardAnalyzerUnitTest {
         board.put(9, HUMAN_PLAYER);
 
         System.out.println("\n" + board.printBoard());
-        int winner = boardAnalyzer.getWinner();
+        char winner= boardAnalyzer.getWinner();
         System.out.println("Winner: " + winner);
 
         assertEquals(HUMAN_PLAYER, winner);
@@ -73,7 +73,7 @@ class BoardAnalyzerUnitTest {
         board.put(9, HUMAN_PLAYER);
 
         System.out.println("\n" + board.printBoard());
-        int winner = boardAnalyzer.getWinner();
+        char winner= boardAnalyzer.getWinner();
         System.out.println("Winner: " + winner);
 
         assertEquals(AI_PLAYER, winner);
@@ -92,7 +92,7 @@ class BoardAnalyzerUnitTest {
         board.put(9, HUMAN_PLAYER);
 
         System.out.println("\n" + board.printBoard());
-        int winner = boardAnalyzer.getWinner();
+        char winner= boardAnalyzer.getWinner();
         System.out.println("Winner: " + winner);
 
         assertEquals(HUMAN_PLAYER, winner);
@@ -111,7 +111,7 @@ class BoardAnalyzerUnitTest {
         board.put(16, HUMAN_PLAYER);
 
         System.out.println("\n" + board.printBoard());
-        int winner = boardAnalyzer.getWinner();
+        char winner= boardAnalyzer.getWinner();
         System.out.println("Winner: " + winner);
 
         assertEquals(HUMAN_PLAYER, winner);
@@ -142,7 +142,7 @@ class BoardAnalyzerUnitTest {
         board.put(20, HUMAN_PLAYER);
 
         System.out.println("\n" + board.printBoard());
-        int winner = boardAnalyzer.getWinner();
+        char winner= boardAnalyzer.getWinner();
         System.out.println("Winner: " + winner);
 
         assertEquals(HUMAN_PLAYER, winner);
@@ -173,7 +173,7 @@ class BoardAnalyzerUnitTest {
         board.put(24, HUMAN_PLAYER);
 
         System.out.println("\n" + board.printBoard());
-        int winner = boardAnalyzer.getWinner();
+        char winner= boardAnalyzer.getWinner();
         System.out.println("Winner: " + winner);
 
         assertEquals(HUMAN_PLAYER, winner);
@@ -204,7 +204,7 @@ class BoardAnalyzerUnitTest {
         board.put(20, HUMAN_PLAYER);
 
         System.out.println("\n" + board.printBoard());
-        int winner = boardAnalyzer.getWinner();
+        char winner= boardAnalyzer.getWinner();
         System.out.println("Winner: " + winner);
 
         assertEquals(HUMAN_PLAYER, winner);
