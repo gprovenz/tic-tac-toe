@@ -15,9 +15,8 @@ Please note that the AI player is time-limited in larger boards (e.g., 6x6) to e
 - Play against an intelligent AI that uses the Minimax algorithm with Alpha-Beta Pruning and Iterative Depth.
 - Choose the board size (from 3x3 to 6x6) for added complexity.
 - The game alternates the starting player between human and AI.
-- To win, place at least 4 symbols in a row, either horizontally, vertically, or diagonally.
+- To win, place at least 4 symbols in a row (3 on 3x3 board), either horizontally, vertically, or diagonally.
 - Simple and intuitive console-based interface.
-- Error handling for invalid moves and user input.
 
 ## How to Play
 
