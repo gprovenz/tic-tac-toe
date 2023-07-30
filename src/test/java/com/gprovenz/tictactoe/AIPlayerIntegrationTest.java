@@ -40,7 +40,7 @@ class AIPlayerIntegrationTest {
         Board board = new Board(6);
         BoardAnalyzer analyzer = new BoardAnalyzer(board);
         AIPlayer aiPlayer1 = new AIPlayer(board, MAX_THINK_TIME_SECONDS, Board.HUMAN_PLAYER);
-        AIPlayer aiPlayer2 = new AIPlayer(board, 2, Board.AI_PLAYER);
+        AIPlayer aiPlayer2 = new AIPlayer(board, MAX_THINK_TIME_SECONDS, Board.AI_PLAYER);
         while (true) {
             boolean moved1 = aiPlayer1.move();
             if (moved1) {
