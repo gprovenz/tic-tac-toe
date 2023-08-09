@@ -6,7 +6,7 @@ This is an open-source Java implementation of the classic game Tic-Tac-Toe with 
 
 The AI player in this game employs Alpha-Beta Pruning to further enhance the search efficiency, and Iterative Depth allows the AI to explore deeper levels of the game tree, providing a stronger challenge on larger boards.
 
-The game provides a simple console-based interface where users can play against the AI. Players can take turns to place their symbol ('X' or 'O') on the board of variable size, ranging from 3x3 up to 6x6. To win, you need to place at least 4 symbols in a row (3 on 3x3 board), either horizontally, vertically, or diagonally.
+The game provides a simple console-based interface where users can play against the AI. Players can take turns to place their symbol on the board of variable size, ranging from 3x3 up to 6x6. To win, you need to place at least 4 symbols in a row (3 on 3x3 board), either horizontally, vertically, or diagonally.
 
 Please note that the AI player is time-limited in larger boards (e.g., 6x6) to ensure a reasonable and enjoyable game experience. Consequently, skilled players may have a chance to defeat the AI on the larger boards.
 
